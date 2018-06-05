@@ -30,8 +30,9 @@ white=(255,255,255)
 class Tabuleiro:
     def __init__(self):
         self.tab=[]
-        for i in range(16):
+        for i in range(15):
             self.tab.append([0]*10)
+        self.tab.append([1]*10)    
 
 
 class Peca(pygame.sprite.Sprite):
@@ -198,7 +199,10 @@ class Chao(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = pos_x
         self.rect.y = pos_y
-     
+        
+        self.tab=[]
+        for i in range(1):
+            self.tab.append([1]*10)
 
 
 
@@ -208,16 +212,34 @@ pecas_paradas_grupo = pygame.sprite.Group()
 
 
 aleatorio = 3 #randrange(0,7)
+
+if aleatorio  == 1:
+    peca = Peca1()
+    
+if aleatorio == 2:
+    peca = Peca2()
+        
 if aleatorio == 3:
     peca = Peca3()
-#    elif blablalba:
+    
+if aleatorio == 4:
+    peca = Peca4()    
+
+if aleatorio == 5:
+    peca = Peca5()
+    
+if aleatorio == 6:
+    peca = Peca6()
+
+if aleatorio == 7:
+    peca = Peca7()
         
 pecas_grupo.add(peca)
 
 chao = Chao(0,altura_display)
 chao_grupo = pygame.sprite.Group()
 chao_grupo.add(chao)
-vel_y = 20
+vel_y = 25
 
 #fim_do_jogo = False
 
@@ -230,6 +252,11 @@ while not perdeu:
 
     for i in pecas_grupo:
         i.rect.y += vel_y
+        if i.rect.y + 50 == [1]:
+            vel_y = 0
+            
+        #if vel_y == 0:
+            
 #        if i.rect.y==0:
 #          perdeu=True
    
