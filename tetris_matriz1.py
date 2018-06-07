@@ -6,9 +6,10 @@ Created on Mon May 28 13:37:26 2018
 """
 import pygame
 from random import randrange
+#from numpy import *
 
-largura_display=8*50
-altura_display=10*50
+largura_display=10*50
+altura_display=12*50
 
 pygame.init()
 tela = pygame.display.set_mode((largura_display,altura_display))
@@ -19,7 +20,7 @@ perdeu = False
 
 
 
-FPS = 10
+FPS = 5
 
 preto=(0,0,0)
 vermelho=(255,0,0)
@@ -30,7 +31,7 @@ white=(255,255,255)
 class Tabuleiro:
     def __init__(self):
         self.tab=[]
-        for i in range(15):
+        for i in range(12):
             self.tab.append([0]*10)
         self.tab.append([1]*10)    
 
@@ -194,7 +195,7 @@ class Chao(pygame.sprite.Sprite):
 
     def __init__(self, pos_x, pos_y):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((700,50))
+        self.image = pygame.Surface((600,50))
         self.image.fill(vermelho)
         self.rect = self.image.get_rect()
         self.rect.x = pos_x
@@ -236,10 +237,18 @@ if aleatorio == 7:
         
 pecas_grupo.add(peca)
 
+def atualizar_tabuleiro(peca):
+    if aleatorio == 3:
+        pass
+            
+        
+
 chao = Chao(0,altura_display)
 chao_grupo = pygame.sprite.Group()
 chao_grupo.add(chao)
-vel_y = 25
+vel_y = 50
+
+
 
 #fim_do_jogo = False
 
@@ -251,9 +260,10 @@ while not perdeu:
             perdeu = True
 
     for i in pecas_grupo:
-        i.rect.y += vel_y
-        if i.rect.y + 50 == [1]:
+        if i.rect.y + 50  > altura_display-100:
             vel_y = 0
+        i.rect.y += vel_y
+            
             
         #if vel_y == 0:
             
