@@ -5,7 +5,7 @@ Created on Mon May 28 13:37:26 2018
 @author: luiza
 """
 import pygame
-from random import randrange
+from random import randint
 #from numpy import *
 
 largura_display=10*50
@@ -101,11 +101,11 @@ class Peca3(Peca):
 
     def __init__(self):
 
-        arquivo_imagem = "peca3.png"
+        arquivo_imagem = "Peca3.png"
         matriz=[[1,1],
                 [1,1]]
-        largura = 50
-        altura = 50
+        largura = 100
+        altura = 100
 
         Peca.__init__(self, arquivo_imagem, largura, altura, matriz)
 
@@ -212,35 +212,40 @@ pecas_grupo = pygame.sprite.Group()
 pecas_paradas_grupo = pygame.sprite.Group()
 
 
-aleatorio = 3 #randrange(0,7)
+aleatorio = randint(1,7)
 
 if aleatorio  == 1:
     peca = Peca1()
+    height  = 200
     
 if aleatorio == 2:
     peca = Peca2()
-        
+    height = 100
+    
 if aleatorio == 3:
     peca = Peca3()
+    height = 100
     
 if aleatorio == 4:
     peca = Peca4()    
-
+    height = 100
+    
 if aleatorio == 5:
     peca = Peca5()
+    height = 150
     
 if aleatorio == 6:
     peca = Peca6()
-
+    height = 200
+    
 if aleatorio == 7:
     peca = Peca7()
-        
+    height = 100
+    
 pecas_grupo.add(peca)
 
 def atualizar_tabuleiro(peca):
-    if aleatorio == 3:
-        pass
-            
+    pass
         
 
 chao = Chao(0,altura_display)
@@ -260,11 +265,11 @@ while not perdeu:
             perdeu = True
 
     for i in pecas_grupo:
-        if i.rect.y + 50  > altura_display-100:
-            vel_y = 0
         i.rect.y += vel_y
-            
-            
+        if i.rect.y + 50  > altura_display - height:
+            vel_y = 0
+        
+        
         #if vel_y == 0:
             
 #        if i.rect.y==0:
