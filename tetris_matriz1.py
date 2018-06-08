@@ -253,7 +253,7 @@ chao_grupo = pygame.sprite.Group()
 chao_grupo.add(chao)
 vel_y = 50
 
-
+peca_caindo = True
 
 #fim_do_jogo = False
 
@@ -268,6 +268,39 @@ while not perdeu:
         i.rect.y += vel_y
         if i.rect.y + 50  > altura_display - height:
             vel_y = 0
+    
+    if not peca_caindo:
+        aleatorio = randint(1,7)
+
+        if aleatorio  == 1:
+            peca = Peca1()
+            height  = 200
+            
+        if aleatorio == 2:
+            peca = Peca2()
+            height = 100
+            
+        if aleatorio == 3:
+            peca = Peca3()
+            height = 100
+            
+        if aleatorio == 4:
+            peca = Peca4()    
+            height = 100
+            
+        if aleatorio == 5:
+            peca = Peca5()
+            height = 150
+            
+        if aleatorio == 6:
+            peca = Peca6()
+            height = 200
+            
+        if aleatorio == 7:
+            peca = Peca7()
+            height = 100
+            
+        pecas_grupo.add(peca)
         
         
         #if vel_y == 0:
