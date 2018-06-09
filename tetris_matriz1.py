@@ -33,7 +33,7 @@ class Tabuleiro:
         self.tab=[]
         for i in range(12):
             self.tab.append([0]*10)
-        self.tab.append([1]*10)    
+  
 
 
 class Peca(pygame.sprite.Sprite):
@@ -47,7 +47,7 @@ class Peca(pygame.sprite.Sprite):
 
     def move(self):
         for event in pygame.event.get():
-            if event.type == pygame.KEYUP:
+            if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     if self.rect.x >= 50:
                         self.rect.x -= 50
@@ -75,7 +75,7 @@ class Peca1(Peca):
 
         self.image = pygame.image.load(arquivo_imagem)
         self.rect = self.image.get_rect()
-        self.rect.x = 220
+        self.rect.x = 200
         self.rect.y = 0
 
 class Peca2(Peca):
@@ -94,7 +94,7 @@ class Peca2(Peca):
 
         self.image = pygame.image.load(arquivo_imagem)
         self.rect = self.image.get_rect()
-        self.rect.x = 220
+        self.rect.x = 200
         self.rect.y = 0
 
 class Peca3(Peca):
@@ -111,7 +111,7 @@ class Peca3(Peca):
 
         self.image = pygame.image.load(arquivo_imagem)
         self.rect = self.image.get_rect()
-        self.rect.x = 220
+        self.rect.x = 200
         self.rect.y = 0
 
 
@@ -129,7 +129,7 @@ class Peca4(Peca):
 
         self.image = pygame.image.load(arquivo_imagem)
         self.rect = self.image.get_rect()
-        self.rect.x = 220
+        self.rect.x = 200
         self.rect.y = 0
 
 
@@ -148,7 +148,7 @@ class Peca5(Peca):
 
         self.image = pygame.image.load(arquivo_imagem)
         self.rect = self.image.get_rect()
-        self.rect.x = 220
+        self.rect.x = 200
         self.rect.y = 0
 
 class Peca6(Peca):
@@ -167,7 +167,7 @@ class Peca6(Peca):
 
         self.image = pygame.image.load(arquivo_imagem)
         self.rect = self.image.get_rect()
-        self.rect.x = 220
+        self.rect.x = 200
         self.rect.y = 0
 
 class Peca7(Peca):
@@ -184,7 +184,7 @@ class Peca7(Peca):
 
         self.image = pygame.image.load(arquivo_imagem)
         self.rect = self.image.get_rect()
-        self.rect.x = 220
+        self.rect.x = 200
         self.rect.y = 0
         self.largura= largura
         self.altura= altura
@@ -268,41 +268,47 @@ while not perdeu:
         i.rect.y += vel_y
         if i.rect.y + 50  > altura_display - height:
             vel_y = 0
+            peca_caindo = False
+            
     
-    if not peca_caindo:
-        aleatorio = randint(1,7)
-
-        if aleatorio  == 1:
-            peca = Peca1()
-            height  = 200
-            
-        if aleatorio == 2:
-            peca = Peca2()
-            height = 100
-            
-        if aleatorio == 3:
-            peca = Peca3()
-            height = 100
-            
-        if aleatorio == 4:
-            peca = Peca4()    
-            height = 100
-            
-        if aleatorio == 5:
-            peca = Peca5()
-            height = 150
-            
-        if aleatorio == 6:
-            peca = Peca6()
-            height = 200
-            
-        if aleatorio == 7:
-            peca = Peca7()
-            height = 100
-            
-        pecas_grupo.add(peca)
+            if not peca_caindo:
+                aleatorio = randint(1,7)
         
-        
+                if aleatorio  == 1:
+                    peca = Peca1()
+                    height  = 200
+                    
+                if aleatorio == 2:
+                    peca = Peca2()
+                    height = 100
+                    
+                if aleatorio == 3:
+                    peca = Peca3()
+                    height = 100
+                    
+                if aleatorio == 4:
+                    peca = Peca4()    
+                    height = 100
+                    
+                if aleatorio == 5:
+                    peca = Peca5()
+                    height = 150
+                    
+                if aleatorio == 6:
+                    peca = Peca6()
+                    height = 200
+                    
+                if aleatorio == 7:
+                    peca = Peca7()
+                    height = 100
+                    
+                pecas_grupo.add(peca)
+                
+                for i in pecas_grupo:
+                    i.rect.y += vel_y
+                    if i.rect.y + 50  > altura_display - height:
+                        vel_y = 0
+            
         #if vel_y == 0:
             
 #        if i.rect.y==0:
