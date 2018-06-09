@@ -6,7 +6,6 @@ Created on Mon May 28 13:37:26 2018
 """
 import pygame
 from random import randint
-#from numpy import *
 
 largura_display=10*50
 altura_display=12*50
@@ -28,11 +27,7 @@ verde=(0,255,0)
 azul=(0,0,255)
 white=(255,255,255)
 
-#class Tabuleiro:
-#    def __init__(self):
-#        self.tab=[]
-#        for i in range(12):
-#            self.tab.append([0]*10)
+
     
 
 
@@ -116,7 +111,7 @@ class Peca3(Peca):
         self.image = pygame.image.load(arquivo_imagem)
         self.rect = self.image.get_rect()
         self.rect.x = 200
-        self.rect.y = 0
+        self.rect.y = -50
 
 
 class Peca4(Peca):
@@ -195,20 +190,6 @@ class Peca7(Peca):
         self.matriz= matriz
                     
 
-class Chao(pygame.sprite.Sprite):
-
-    def __init__(self, pos_x, pos_y):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((600,50))
-        self.image.fill(vermelho)
-        self.rect = self.image.get_rect()
-        self.rect.x = pos_x
-        self.rect.y = pos_y
-        
-        self.tab=[]
-        for i in range(1):
-            self.tab.append([1]*10)
-
 
 
 
@@ -248,18 +229,16 @@ if aleatorio == 7:
     
 pecas_grupo.add(peca)
 
-def atualizar_tabuleiro(peca):
-    pass
+
         
 
-chao = Chao(0,altura_display)
-chao_grupo = pygame.sprite.Group()
-chao_grupo.add(chao)
+
+
+
 vel_y =50
 
-peca_caindo = True
 
-#fim_do_jogo = False
+
 cair= True
 tab=[]
 for i in range(12):
@@ -279,17 +258,21 @@ while not perdeu:
         i.rect.y += vel_y
         if i.rect.y + 50  > altura_display - height:
             vel_y = 0
-        if vel_y == 0: 
-            x= int((i.rect.y)/50)
-            print(x)
-            y= int((i.rect.x)/50)
-            print(y)
-            tab[x][y]= 1
-            tab[x+1][y]=1
-            tab[x][y+1]=1
-            tab[x+1][y+1]=1
-            print(tab)
+            cair = False
             
+        x= int((i.rect.y)/50)
+        print(x)
+        y= int((i.rect.x)/50)
+        print(y)
+        tab[x][y]= 1
+        tab[x+1][y]=1
+        tab[x][y+1]=1
+        tab[x+1][y+1]=1
+        
+        tab[x-1][y]=0
+        tab[x-1][y+1]=0
+        print(tab)
+        
     
 #        for e in tab:
 #            x= (i.rect.y)/50          
@@ -297,8 +280,8 @@ while not perdeu:
 #            if tab[x+2][y]==1:
 #                vel_y= 0
 #                if vel_y == 0: 
-#                   x= (i.rect.y)/50          
-#                   y= (i.rect.x)/50
+#                   x= int((i.rect.y)/50 )         
+#                   y= int((i.rect.x)/50)
 #                   tab[x][y]= 1
 #                   tab[x+1][y]=1
 #                   tab[x][y+1]=1
@@ -313,13 +296,10 @@ while not perdeu:
 #                      tab[x+1][y]=1
 #                      tab[x][y+1]=1
 #                      tab[x+1][y+1]=1
-#                      
-#                      
+
+                                            
                       
                 
-         
-        
-#            
             
             
                
@@ -329,9 +309,9 @@ while not perdeu:
             
             
               
-             
-#    
-    if not peca_caindo:
+                 
+    if not cair:
+        peca_caindo = True
         aleatorio = 3
 
         if aleatorio  == 1:
@@ -365,11 +345,7 @@ while not perdeu:
         pecas_grupo.add(peca)
         
         
-        #if vel_y == 0:
-            
-#        if i.rect.y==0:
-#          perdeu=True
-   
+
 
 
 
@@ -378,7 +354,6 @@ while not perdeu:
 
     tela.fill(preto)
     pecas_grupo.draw(tela)
-    chao_grupo.draw(tela)
     pygame.display.update()
 
     clock.tick(FPS)
