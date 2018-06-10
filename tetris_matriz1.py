@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Mon May 28 13:37:26 2018
+
 @author: luiza
 """
 import pygame
@@ -27,11 +28,11 @@ verde=(0,255,0)
 azul=(0,0,255)
 white=(255,255,255)
 
-class Tabuleiro:
-    def __init__(self):
-        self.tab=[]
-        for i in range(12):
-            self.tab.append([0]*10)
+#class Tabuleiro:
+#    def __init__(self):
+#        self.tab=[]
+#        for i in range(12):
+#            self.tab.append([0]*10)
   
 
 
@@ -211,7 +212,7 @@ pecas_grupo = pygame.sprite.Group()
 pecas_paradas_grupo = pygame.sprite.Group()
 
 
-aleatorio = randint(1,7)
+aleatorio = 3 #randint(1,7)
 
 if aleatorio  == 1:
     peca = Peca1()
@@ -270,43 +271,44 @@ while not perdeu:
             peca_caindo = False
             
     
-            if not peca_caindo:
-                aleatorio = randint(1,7)
+    if not peca_caindo:
+        aleatorio = 3 #randint(1,7)
         
-                if aleatorio  == 1:
-                    peca = Peca1()
-                    height  = 200
+        if aleatorio  == 1:
+            peca = Peca1()
+            height  = 200
                     
-                if aleatorio == 2:
-                    peca = Peca2()
-                    height = 100
+        if aleatorio == 2:
+            peca = Peca2()
+            height = 100
                     
-                if aleatorio == 3:
-                    peca = Peca3()
-                    height = 100
-                    
-                if aleatorio == 4:
-                    peca = Peca4()    
-                    height = 100
-                    
-                if aleatorio == 5:
-                    peca = Peca5()
-                    height = 150
-                    
-                if aleatorio == 6:
-                    peca = Peca6()
-                    height = 200
-                    
-                if aleatorio == 7:
-                    peca = Peca7()
-                    height = 100
-                    
-                pecas_grupo.add(peca)
-                
-                for i in pecas_grupo:
-                    i.rect.y += vel_y
-                    if i.rect.y + 50  > altura_display - height:
-                        vel_y = 0
+        if aleatorio == 3:
+            peca = Peca3()
+            height = 100
+            
+        if aleatorio == 4:
+            peca = Peca4()    
+            height = 100
+            
+        if aleatorio == 5:
+            peca = Peca5()
+            height = 150
+            
+        if aleatorio == 6:
+            peca = Peca6()
+            height = 200
+            
+        if aleatorio == 7:
+            peca = Peca7()
+            height = 100
+            
+        
+    if peca.rect.y + height  >= altura_display:
+        vel_y = 0    
+    else:
+        vel_y = 50
+    peca.rect.y += vel_y
+        
             
         #if vel_y == 0:
             
