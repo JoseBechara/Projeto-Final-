@@ -21,7 +21,7 @@ perdeu = False
 
 
 
-FPS = 5
+FPS = 60
 
 preto=(0,0,0)
 vermelho=(255,0,0)
@@ -29,11 +29,6 @@ verde=(0,255,0)
 azul=(0,0,255)
 white=(255,255,255)
 
-#class Tabuleiro:
-#    def __init__(self):
-#        self.tab=[]
-#        for i in range(12):
-#            self.tab.append([0]*10)
 
 
 
@@ -45,22 +40,22 @@ class Peca(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = largura_display/2
         self.rect.y = -50
+        self.vel_y = 25
 
     def move(self):
-        for event in pygame.event.get():
-            if event.type == pygame.KEYDOWN:
-                 self.rect.y -= 25
-            if event.type == pygame.K_LEFT:
-                   self.rect.x -= 50
-            if event.type == pygame.K_RIGHT:
-                    if self.rect.x <= largura_display-100:
-                        self.rect.x += 50
-
-
-
-
-
-
+        key = pygame.key.get_pressed()
+       
+        if key[pygame.KEYDOWN]:
+             self.rect.y -= 50
+        if key[pygame.K_LEFT]:
+            if self.rect.x >= 0:
+                self.rect.x -= 50
+        if key[pygame.K_RIGHT]:
+            if self.rect.x <= largura_display - 100:
+                self.rect.x += 50
+                
+    def cair(self):
+        self.rect.y += self.vel_y
 
 
 
@@ -73,12 +68,13 @@ class Peca1(Peca):
                 [1,0],
                 [1,0],
                 [1,0]]
-        largura = 50
-        altura = 200
+        largura = int(50/2)
+        altura = int(200/2)
 
         Peca.__init__(self, arquivo_imagem, largura, altura, matriz)
 
-        self.image = pygame.image.load(arquivo_imagem)
+        imagem = pygame.image.load(arquivo_imagem)
+        self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
         self.rect.y = -50
@@ -92,12 +88,13 @@ class Peca2(Peca):
                 [1,1,0]]
 
 
-        largura = 150
-        altura = 100
+        largura = int(150/2)
+        altura = int(100/2)
 
         Peca.__init__(self, arquivo_imagem, largura, altura, matriz)
 
-        self.image = pygame.image.load(arquivo_imagem)
+        imagem = pygame.image.load(arquivo_imagem)
+        self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
         self.rect.y = -50
@@ -109,16 +106,17 @@ class Peca3(Peca):
         arquivo_imagem = "Peca3.png"
         matriz=[[1,1],
                 [1,1]]
-        largura = 100
-        altura = 100
+        largura = int(100/2)
+        altura = int(100/2)
 
         Peca.__init__(self, arquivo_imagem, largura, altura, matriz)
 
-        self.image = pygame.image.load(arquivo_imagem)
+        imagem = pygame.image.load(arquivo_imagem)
+        self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
         self.rect.y = -50
-        self.vel_y = 50
+        
 
 
 class Peca4(Peca):
@@ -128,12 +126,13 @@ class Peca4(Peca):
         arquivo_imagem = "Peca4.png"
         matriz=[[0,1,0],
                 [1,1,1]]
-        largura = 150
-        altura = 100
+        largura = int(150/2)
+        altura = int(100/2)
 
         Peca.__init__(self, arquivo_imagem, largura, altura, matriz)
 
-        self.image = pygame.image.load(arquivo_imagem)
+        imagem = pygame.image.load(arquivo_imagem)
+        self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
         self.rect.y = -50
@@ -147,12 +146,13 @@ class Peca5(Peca):
         matriz=[[0,1],
                 [1,1],
                 [1,0]]
-        largura = 100
-        altura = 150
+        largura = int(100/2)
+        altura = int(150/2)
 
         Peca.__init__(self, arquivo_imagem, largura, altura, matriz)
 
-        self.image = pygame.image.load(arquivo_imagem)
+        imagem = pygame.image.load(arquivo_imagem)
+        self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
         self.rect.y = -50
@@ -166,12 +166,13 @@ class Peca6(Peca):
                 [0,1,0],
                 [0,1,0],
                 [0,1,0]]
-        largura = 50
-        altura = 200
+        largura = int(50/2)
+        altura = int(200/2)
 
         Peca.__init__(self, arquivo_imagem, largura, altura, matriz)
 
-        self.image = pygame.image.load(arquivo_imagem)
+        imagem = pygame.image.load(arquivo_imagem)
+        self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
         self.rect.y = -50
@@ -183,33 +184,19 @@ class Peca7(Peca):
         arquivo_imagem = "Peca7.png"
         matriz=[[0,0,0,1],
                 [1,1,1,1]]
-        largura = 200
-        altura = 100
+        largura = int(200/2)
+        altura = int(100/2)
 
         Peca.__init__(self, arquivo_imagem, largura, altura, matriz)
 
-        self.image = pygame.image.load(arquivo_imagem)
+        imagem = pygame.image.load(arquivo_imagem)
+        self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
         self.rect.y = -50
         self.largura= largura
         self.altura= altura
         self.matriz= matriz
-
-
-class Chao(pygame.sprite.Sprite):
-
-    def __init__(self, pos_x, pos_y):
-        pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.Surface((600,50))
-        self.image.fill(vermelho)
-        self.rect = self.image.get_rect()
-        self.rect.x = pos_x
-        self.rect.y = pos_y
-
-        self.tab=[]
-        for i in range(1):
-            self.tab.append([1]*10)
 
 
 
@@ -251,24 +238,16 @@ if aleatorio == 7:
 pecas_grupo.add(peca)
 
 
-
-chao = Chao(0,altura_display)
-chao_grupo = pygame.sprite.Group()
-chao_grupo.add(chao)
-vel_y =50
+delay = 0
 
 peca_caindo = True
-
-
-cair= True
 tab=[]
-for i in range(12):
-    tab.append([0]*10)
+for i in range(24):
+    tab.append([0]*20)
 
 peca_caindo = True
-testador_de_peca_caindo = 0
-teste = False
 lista_vel = []
+
 while not perdeu:
 
 
@@ -278,23 +257,20 @@ while not perdeu:
             perdeu = True
 
     for i in pecas_grupo:
-        i.rect.y += i.vel_y
         x= int((i.rect.y)/50)
         y= int((i.rect.x)/50)
         
         if aleatorio == 3:
-            #testa se a proxima posiçao tem uma peça
-            tab[x][y] = 1
-            tab[x+1][y] = 1
-            tab[x][y+1] = 1
-            tab[x+1][y+1] = 1
-
-            tab[x-1][y] = 0
-            tab[x-1][y+1] = 0
+            if i.vel_y==0:
+                tab[x][y] = 1
+                tab[x+1][y] = 1
+                tab[x][y+1] = 1
+                tab[x+1][y+1] = 1
 
             if i.rect.y + 50  > altura_display - height or tab[x+2][y] == 1 or tab[x+2][y+1]:
                 i.vel_y = 0
         lista_vel.append(i.vel_y)
+        print(x)
         print(tab)
         
         if any([x == 50 for x in lista_vel]):
@@ -306,10 +282,10 @@ while not perdeu:
         if i.rect.y == 0 and i.vel_y == 0:
             print('perdeu')
         
-    #print(tab)
 
     if not peca_caindo:
         peca_caindo = True
+        
         aleatorio = 3
 
         if aleatorio  == 1:
@@ -342,16 +318,15 @@ while not perdeu:
 
         pecas_grupo.add(peca)
 
-    
+    delay += 1
+    if delay == 10:
+        delay = 0
+        peca.cair()
 
 
-
-
-
-
+    peca.move()
     tela.fill(preto)
     pecas_grupo.draw(tela)
-    chao_grupo.draw(tela)
     pygame.display.update()
 
     clock.tick(FPS)
