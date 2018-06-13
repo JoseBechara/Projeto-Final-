@@ -298,7 +298,7 @@ while not perdeu:
             k = 0
 
     if peca.rect.y == 0 and peca.vel_y == 0:
-        print('perdeu')
+        print('Perdeu')
 
 
     if not peca.caindo:
