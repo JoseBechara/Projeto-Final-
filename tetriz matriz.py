@@ -309,8 +309,13 @@ while not perdeu:
 
             k = 0
 
+<<<<<<< HEAD
     if peca.rect.y == 0 and not peca.caindo:
         print('perdeu')
+=======
+    if peca.rect.y == 0 and peca.vel_y == 0:
+        print('Perdeu')
+>>>>>>> 60793fff040f96eb0df80703230b7e4132ea36a3
 
 
     if not peca.caindo:
