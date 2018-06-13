@@ -47,27 +47,7 @@ class Peca(pygame.sprite.Sprite):
         self.delay = 6
         self.caindo = True
         self.posicao = 1
-
-    def move(self):
-        key = pygame.key.get_pressed()
-        x = int((self.rect.y)/25)
-        y = int((self.rect.x)/25)
-
-        if key[pygame.K_DOWN] and not self.click:
-             self.delay = 1
-             self.click = True
-        if key[pygame.K_LEFT] and not self.click:
-            self.click = True
-            if not tab[x][y-1] == 1 and not tab[x+1][y-1] == 1:
-                if self.rect.x >= 25:
-                    self.rect.x -= 25
-        if key[pygame.K_RIGHT] and not self.click:
-            self.click = True
-            if not tab[x][y+2] == 1 and not tab[x+1][y+2] == 1:
-                if self.rect.x <= largura_display - 75:
-                    self.rect.x += 25
-        if not key[pygame.K_RIGHT] and not key[pygame.K_LEFT]:
-            self.click = False
+    
 
     def cair(self):
         self.rect.y += self.vel_y
@@ -84,7 +64,7 @@ class Peca1(Peca):
                 [1,0],
                 [1,0]]
         largura = 50
-        altura = 100
+        altura = 75
 
         Peca.__init__(self, arquivo_imagem, largura, altura, matriz)
 
@@ -92,8 +72,31 @@ class Peca1(Peca):
         self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
-        self.rect.y = -50
+        self.rect.y = 0
+        
+    def move(self):
+        largura = 50
+        
+        key = pygame.key.get_pressed()
+        x = int((self.rect.y)/25)
+        y = int((self.rect.x)/25)
 
+       
+        if key[pygame.K_LEFT] and not self.click:
+            self.click = True
+            if not tab[x][y-1] == 1 and not tab[x+1][y-1] == 1 and not tab[x+2][y-1]:
+                if self.rect.x >= 25:
+                    self.rect.x -= 25
+        if key[pygame.K_RIGHT] and not self.click:
+            self.click = True
+            if not tab[x][y+2] == 1 :
+                if self.rect.x <= largura_display - largura:
+                    self.rect.x += 25
+        if not key[pygame.K_RIGHT] and not key[pygame.K_LEFT]:
+            self.click = False
+   
+        
+    
 class Peca2(Peca):
 
     def __init__(self):
@@ -112,7 +115,28 @@ class Peca2(Peca):
         self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
-        self.rect.y = -50
+        self.rect.y = 0
+        
+    def move(self):
+        largura = 75
+        key = pygame.key.get_pressed()
+        x = int((self.rect.y)/25)
+        y = int((self.rect.x)/25)
+
+        
+        if key[pygame.K_LEFT] and not self.click:
+            self.click = True
+            if not tab[x+1][y-1] == 1:
+                if self.rect.x >= 25:
+                    self.rect.x -= 25
+        if key[pygame.K_RIGHT] and not self.click:
+            self.click = True
+            if not tab[x][y+3] == 1 :
+                if self.rect.x <= largura_display - largura:
+                    self.rect.x += 25
+        if not key[pygame.K_RIGHT] and not key[pygame.K_LEFT]:
+            self.click = False
+    
 
 class Peca3(Peca):
 
@@ -130,7 +154,28 @@ class Peca3(Peca):
         self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
-        self.rect.y = -50
+        self.rect.y = 0
+        
+    def move(self):
+        largura = 50
+        key = pygame.key.get_pressed()
+        x = int((self.rect.y)/25)
+        y = int((self.rect.x)/25)
+
+       
+        if key[pygame.K_LEFT] and not self.click:
+            self.click = True
+            if not tab[x][y-1] == 1 and not tab[x+1][y-1] == 1:
+                if self.rect.x >= 25 :
+                    self.rect.x -= 25
+        if key[pygame.K_RIGHT] and not self.click:
+            self.click = True
+            if not tab[x][y+2] == 1 and not tab[x+1][y+2] == 1:
+                if self.rect.x <= largura_display - largura:
+                    self.rect.x += 25
+        if not key[pygame.K_RIGHT] and not key[pygame.K_LEFT]:
+            self.click = False   
+    
 
 
 
@@ -150,7 +195,27 @@ class Peca4(Peca):
         self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
-        self.rect.y = -50
+        self.rect.y = 0
+        
+    def move(self):
+        largura = 75
+        key = pygame.key.get_pressed()
+        x = int((self.rect.y)/25)
+        y = int((self.rect.x)/25)
+
+        
+        if key[pygame.K_LEFT] and not self.click:
+            self.click = True
+            if not tab[x+1][y-1] == 1:
+                if self.rect.x >= 25:
+                    self.rect.x -= 25
+        if key[pygame.K_RIGHT] and not self.click:
+            self.click = True
+            if not tab[x+1][y+3] == 1 :
+                if self.rect.x <= largura_display - largura:
+                    self.rect.x += 25
+        if not key[pygame.K_RIGHT] and not key[pygame.K_LEFT]:
+            self.click = False    
 
 
 class Peca5(Peca):
@@ -215,35 +280,34 @@ pecas_grupo = pygame.sprite.Group()
 pecas_paradas_grupo = pygame.sprite.Group()
 
 
-aleatorio = 1
+aleatorio = randint(1,4)
 
 if aleatorio  == 1:
     peca = Peca1()
-    height  = 100
+ 
 
 if aleatorio == 2:
     peca = Peca2()
-    height = 100
+
 
 if aleatorio == 3:
     peca = Peca3()
-    height = 100
+
 
 if aleatorio == 4:
     peca = Peca4()
-    height = 100
+ 
 
 if aleatorio == 5:
     peca = Peca5()
-    height = 150
 
 if aleatorio == 6:
     peca = Peca6()
-    height = 200
+
 
 if aleatorio == 7:
     peca = Peca7()
-    height = 100
+ 
 
 pecas_grupo.add(peca)
 
@@ -254,6 +318,7 @@ peca_caindo = True
 tab = []
 for i in range(24):
     tab.append([0]*20+[1])
+tab.append([1]*21)
 
 k = 0
 peca_caindo = True
@@ -270,7 +335,7 @@ while not perdeu:
     y = int((peca.rect.x)/25)
 
     if aleatorio == 3:
-        if peca.rect.y-25  > altura_display - height or tab[x+2][y] == 1 or tab[x+2][y+1] == 1:
+        if tab[x+2][y] == 1 or tab[x+2][y+1] == 1:
             # peca.vel_y = 0
             peca.caindo = False
             tab[x][y] = 1
@@ -279,15 +344,58 @@ while not perdeu:
             tab[x+1][y+1] = 1
             
     if aleatorio == 1:
-        if peca.rect.y  == 525 or tab[x+3][y] == 1 or tab[x+1][y+1] == 1 :
+        if tab[x+3][y] == 1 or tab[x+1][y+1] == 1 :
             peca.caindo = False
             tab[x][y] = 1
             tab[x+1][y] = 1
             tab[x][y+1] = 1
             tab[x+2][y] = 1
+        
+    if aleatorio == 2 :
+        if tab[x+2][y] == 1 or tab[x+2][y+1] == 1 or tab[x+1][y+2] == 1 :
+            peca.caindo = False
+            tab[x][y+1] = 1
+            tab[x][y+2] = 1
+            tab[x+1][y] = 1
+            tab[x+1][y+1] = 1
+       
+    if aleatorio == 4 :
+        if tab[x+2][y] == 1 or tab[x+2][y+1] == 1 or tab[x+2][y+2] == 1 :
+            peca.caindo = False
+            tab[x+1][y] = 1
+            tab[x+1][y+1] = 1
+            tab[x+1][y+2] = 1
+            tab[x][y+1] = 1
             
-        print(x)    
-        print(tab)   
+    if aleatorio == 5 :
+       if tab[x+3][y] == 1 or tab[x+2][y+1] == 1 :
+            peca.caindo = False
+            tab[x+1][y] = 1
+            tab[x+2][y] = 1
+            tab[x][y+1] = 1
+            tab[x+1][y+1] = 1       
+        
+    if aleatorio == 6 :
+       if tab[x+4][y] == 1 :
+            peca.caindo = False
+            tab[x][y] = 1
+            tab[x+1][y] = 1
+            tab[x+2][y] = 1
+            tab[x+3][y] = 1       
+            
+    if aleatorio == 7 :
+       if tab[x+2][y] == 1 or tab[x+2][y+1] == 1 or tab[x+2][y+2] ==1 :
+            peca.caindo = False
+            tab[x+1][y] = 1
+            tab[x+1][y+1] = 1
+            tab[x+1][y+2] = 1
+            tab[x][y+2] = 1              
+        
+          
+        
+            
+    print(x)    
+    print(tab)   
         
 
         #print(x)
@@ -300,27 +408,23 @@ while not perdeu:
                     tab.remove(tab[z])
                     tab.insert(0,[0]*20+[1])
                     for peca in pecas_grupo:
-                        if peca.rect.y == z*25:
-                            pecas_grupo.remove(peca)
-                        if peca.rect.y < z*25:
                             peca.rect.y += 25
                     var = 0
             var = 0
 
             k = 0
 
-<<<<<<< HEAD
+
     if peca.rect.y == 0 and not peca.caindo:
         print('perdeu')
-=======
-    if peca.rect.y == 0 and peca.vel_y == 0:
-        print('Perdeu')
->>>>>>> 60793fff040f96eb0df80703230b7e4132ea36a3
+
+
 
 
     if not peca.caindo:
         peca.caindo = True
-        aleatorio = 1
+        aleatorio = randint(1,4)
+
 
         if aleatorio  == 1:
             peca = Peca1()
