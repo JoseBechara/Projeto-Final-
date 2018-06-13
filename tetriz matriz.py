@@ -54,7 +54,7 @@ class Peca(pygame.sprite.Sprite):
         y = int((self.rect.x)/25)
 
         if key[pygame.K_DOWN] and not self.click:
-             self.delay = 6
+             self.delay = 1
              self.click = True
         if key[pygame.K_LEFT] and not self.click:
             self.click = True
@@ -83,7 +83,7 @@ class Peca1(Peca):
                 [1,0],
                 [1,0],
                 [1,0]]
-        largura = 25
+        largura = 50
         altura = 100
 
         Peca.__init__(self, arquivo_imagem, largura, altura, matriz)
@@ -215,11 +215,11 @@ pecas_grupo = pygame.sprite.Group()
 pecas_paradas_grupo = pygame.sprite.Group()
 
 
-aleatorio = 3
+aleatorio = 1
 
 if aleatorio  == 1:
     peca = Peca1()
-    height  = 200
+    height  = 100
 
 if aleatorio == 2:
     peca = Peca2()
@@ -277,6 +277,18 @@ while not perdeu:
             tab[x+1][y] = 1
             tab[x][y+1] = 1
             tab[x+1][y+1] = 1
+            
+    if aleatorio == 1:
+        if peca.rect.y  == 525 or tab[x+3][y] == 1 or tab[x+1][y+1] == 1 :
+            peca.caindo = False
+            tab[x][y] = 1
+            tab[x+1][y] = 1
+            tab[x][y+1] = 1
+            tab[x+2][y] = 1
+            
+        print(x)    
+        print(tab)   
+        
 
         #print(x)
         #print(tab)
@@ -297,13 +309,18 @@ while not perdeu:
 
             k = 0
 
+<<<<<<< HEAD
+    if peca.rect.y == 0 and not peca.caindo:
+        print('perdeu')
+=======
     if peca.rect.y == 0 and peca.vel_y == 0:
         print('Perdeu')
+>>>>>>> 60793fff040f96eb0df80703230b7e4132ea36a3
 
 
     if not peca.caindo:
         peca.caindo = True
-        aleatorio = 3
+        aleatorio = 1
 
         if aleatorio  == 1:
             peca = Peca1()
@@ -346,7 +363,7 @@ while not perdeu:
     pygame.display.update()
 
     clock.tick(FPS)
-print('oooooooooooooooooooooooooooooooooo')
+
 print(tab)
 pygame.quit()
 quit()
