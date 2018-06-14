@@ -23,7 +23,7 @@ perdeu = False
 
 
 
-FPS = 60
+FPS = 30
 
 preto=(0,0,0)
 vermelho=(255,0,0)
@@ -61,8 +61,8 @@ class Peca1(Peca):
         arquivo_imagem = "Peca1.png"
         matriz=[[1,1],
                 [1,0],
-                [1,0],
                 [1,0]]
+                
         largura = 50
         altura = 75
 
@@ -235,7 +235,28 @@ class Peca5(Peca):
         self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
-        self.rect.y = -50
+        self.rect.y = 0
+        
+    def move(self):
+        largura = 50
+        
+        key = pygame.key.get_pressed()
+        x = int((self.rect.y)/25)
+        y = int((self.rect.x)/25)
+
+       
+        if key[pygame.K_LEFT] and not self.click:
+            self.click = True
+            if not tab[x+1][y-1] == 1 and not tab[x+2][y-1] == 1 :
+                if self.rect.x >= 25:
+                    self.rect.x -= 25
+        if key[pygame.K_RIGHT] and not self.click:
+            self.click = True
+            if not tab[x][y+2] == 1 and not tab[x+1][y+2] == 1 :
+                if self.rect.x <= largura_display - largura:
+                    self.rect.x += 25
+        if not key[pygame.K_RIGHT] and not key[pygame.K_LEFT]:
+            self.click = False   
 
 class Peca6(Peca):
 
@@ -255,7 +276,29 @@ class Peca6(Peca):
         self.image = pygame.transform.scale(imagem,(largura,altura))
         self.rect = self.image.get_rect()
         self.rect.x = 200
-        self.rect.y = -50
+        self.rect.y = 0
+        
+    def move(self):
+        largura = 50
+        
+        key = pygame.key.get_pressed()
+        x = int((self.rect.y)/25)
+        y = int((self.rect.x)/25)
+
+       
+        if key[pygame.K_LEFT] and not self.click:
+            self.click = True
+            if not tab[x+1][y-1] == 1 and not tab[x+2][y-1] == 1 and not tab[x][y-1] == 1 and not tab[x+3][y-1] == 1 :
+                if self.rect.x >= 25:
+                    self.rect.x -= 25
+        if key[pygame.K_RIGHT] and not self.click:
+            self.click = True
+            if not tab[x][y+1] == 1 and not tab[x+1][y+1] == 1 and not tab[x+2][y+1] == 1 and not tab[x+3][y+1] == 1 :
+                if self.rect.x <= largura_display - largura:
+                    self.rect.x += 25
+        if not key[pygame.K_RIGHT] and not key[pygame.K_LEFT]:
+            self.click = False   
+    
 
 class Peca7(Peca):
 
@@ -275,12 +318,32 @@ class Peca7(Peca):
         self.rect.x = 200
         self.rect.y = -50
 
+    def move(self):
+        largura = 50
+        
+        key = pygame.key.get_pressed()
+        x = int((self.rect.y)/25)
+        y = int((self.rect.x)/25)
+
+       
+        if key[pygame.K_LEFT] and not self.click:
+            self.click = True
+            if not tab[x+1][y-1] == 1 :
+                if self.rect.x >= 25:
+                    self.rect.x -= 25
+        if key[pygame.K_RIGHT] and not self.click:
+            self.click = True
+            if not tab[x][y+3] == 1 and not tab[x+1][y+3] == 1 :
+                if self.rect.x <= largura_display - largura:
+                    self.rect.x += 25
+        if not key[pygame.K_RIGHT] and not key[pygame.K_LEFT]:
+            self.click = False   
 
 pecas_grupo = pygame.sprite.Group()
 pecas_paradas_grupo = pygame.sprite.Group()
 
 
-aleatorio = randint(1,4)
+aleatorio = randint(1,6)
 
 if aleatorio  == 1:
     peca = Peca1()
@@ -417,13 +480,14 @@ while not perdeu:
 
     if peca.rect.y == 0 and not peca.caindo:
         print('perdeu')
+        break
 
 
 
 
     if not peca.caindo:
         peca.caindo = True
-        aleatorio = randint(1,4)
+        aleatorio = randint(1,6)
 
 
         if aleatorio  == 1:
